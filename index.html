@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitch — Dossier</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --green:       #1a9e70;
+  --green-light: #eaf7f2;
+  --green-dark:  #0d6e4e;
+  --red:         #e05a3a;
+  --red-light:   #fef3f0;
+  --text:        #1a1a18;
+  --text-2:      #5a5a55;
+  --text-3:      #9a9a94;
+  --bg:          #ffffff;
+  --bg-2:        #f5f5f2;
+  --border:      #e8e8e4;
+  --serif:       'DM Serif Display', Georgia, serif;
+  --sans:        'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: #e8e8e4;
+  color: var(--text);
+  padding: 32px 16px 60px;
+}
+
+.page {
+  background: var(--bg);
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto 24px;
+  border-radius: 4px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+/* CABECERA */
+.header {
+  background: #1a1a18;
+  padding: 26px 36px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-family: var(--serif);
+  font-size: 26px;
+  color: white;
+}
+.logo span { color: var(--green); }
+.header-right {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.82);
+}
+
+.body { padding: 30px 36px; }
+
+.section { margin-bottom: 26px; }
+.section:last-child { margin-bottom: 0; }
+
+.tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+.title {
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.subtitle {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.68;
+  font-weight: 300;
+}
+
+hr { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+
+/* STATS — siempre 3 columnas */
+.stat-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.stat-box {
+  flex: 1;
+  min-width: 0;
+  background: var(--red-light);
+  border-radius: 8px;
+  padding: 13px 8px;
+  text-align: center;
+  border-top: 2px solid var(--red);
+}
+.stat-num {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--red);
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+.stat-label { font-size: 10.5px; color: var(--text-2); line-height: 1.4; }
+
+/* LOGROS */
+.promise-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 14px;
+}
+.promise-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  background: var(--green-light);
+  border-radius: 8px;
+  padding: 11px 12px;
+}
+.picon {
+  width: 18px; height: 18px;
+  background: var(--green);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.picon svg { width: 10px; height: 10px; stroke: white; stroke-width: 2.5; fill: none; }
+.ptext { font-size: 12px; color: var(--green-dark); line-height: 1.5; }
+.ptext strong { font-weight: 500; display: block; margin-bottom: 1px; }
+
+/* SLIDERS */
+.slider-group {
+  margin-bottom: 16px;
+}
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.slider-header label {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.slider-val {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--text);
+}
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 1px 6px rgba(26,158,112,0.3);
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--green);
+  border: none;
+  cursor: pointer;
+}
+
+/* CALCULADORAS */
+.calc-wrap {
+  background: var(--bg-2);
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 12px;
+}
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.input-group label {
+  display: block;
+  font-size: 10px;
+  color: var(--text-3);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 5px;
+}
+.input-group input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 11px;
+  font-size: 15px;
+  font-family: var(--sans);
+  font-weight: 500;
+  color: var(--text);
+  background: white;
+  outline: none;
+  transition: border-color .15s;
+}
+.input-group input:focus { border-color: var(--green); }
+
+.result-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 7px;
+}
+.rbox {
+  border-radius: 8px;
+  padding: 10px 9px;
+  text-align: center;
+}
+.rbox.neutral { background: white; border: 1px solid var(--border); }
+.rbox.gain    { background: var(--green); }
+.rbox .rl { font-size: 10px; color: var(--text-3); margin-bottom: 4px; line-height: 1.3; }
+.rbox.gain .rl { color: rgba(255,255,255,0.7); }
+.rbox .rn { font-family: var(--serif); font-size: 16px; color: var(--text); }
+.rbox.gain .rn { color: white; font-size: 18px; }
+
+.result-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 7px;
+}
+.rbox.accent .rn { color: var(--green); font-size: 18px; }
+
+.dcalc {
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* CALCULADORA 2 TIEMPO */
+.time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 10px;
+}
+.tbox {
+  border-radius: 8px;
+  padding: 13px 12px;
+  text-align: center;
+}
+.tbox.before { background: var(--red-light); border: 1px solid rgba(224,90,58,0.18); }
+.tbox.after  { background: var(--green-light); border: 1px solid rgba(26,158,112,0.18); }
+.tbox .ttag  { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.tbox.before .ttag { color: var(--red); }
+.tbox.after  .ttag { color: var(--green-dark); }
+.tbox .tnum  { font-family: var(--serif); font-size: 24px; margin-bottom: 3px; }
+.tbox.before .tnum { color: var(--red); }
+.tbox.after  .tnum { color: var(--green); }
+.tbox .tlabel { font-size: 11px; color: var(--text-2); line-height: 1.4; }
+.time-save {
+  background: var(--green);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 7px;
+}
+.time-save span { font-size: 11px; color: rgba(255,255,255,0.75); }
+.time-save strong { font-family: var(--serif); font-size: 14px; color: white; display: block; margin-top: 2px; }
+
+/* EQUIPO */
+.team-founders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+.member {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.member-av {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: #1a1a18;
+  color: white;
+  font-family: var(--serif);
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+}
+.member-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.member-role { font-size: 10px; color: var(--green); font-weight: 500; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 8px; }
+.member-desc { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+
+.team-mission {
+  background: #1a1a18;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 10px;
+}
+.team-mission p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.team-mission p strong {
+  color: white;
+  font-weight: 500;
+}
+
+/* MÓVIL */
+@media (max-width: 520px) {
+  .header { padding: 20px 18px 16px; }
+  .body { padding: 22px 18px; }
+  .promise-grid { grid-template-columns: 1fr; }
+  .input-row { grid-template-columns: 1fr; }
+  .result-row { grid-template-columns: 1fr; }
+  .result-row2 { grid-template-columns: 1fr; }
+  .team-founders { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .page { box-shadow: none; border-radius: 0; margin: 0; page-break-after: always; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════════════ PÁGINA 1 ════════════ -->
+<div class="page">
+  <div class="header" style="justify-content:center;">
+    <div class="logo">kit<span>ch</span></div>
+  </div>
+
+  <div class="body">
+
+    <!-- PROBLEMA -->
+    <div class="section">
+      <div class="tag">La realidad del sector</div>
+      <div class="title">La hostelería española sangra dinero sin saberlo</div>
+      <div class="subtitle">El 60% de los restaurantes en España cierra antes de cumplir 5 años. La causa más común no es la falta de clientes — es no saber lo que cuesta cada plato que se sirve. Los márgenes en hostelería rondan el 3–9%, y la mayoría de los propietarios trabajan a ciegas: precios de proveedor desactualizados, albaranes en papel y escandallos que no cuadran con la realidad del día a día.</div>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">60%</div>
+          <div class="stat-label">de restaurantes cierra antes de 5 años</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5–8%</div>
+          <div class="stat-label">de la facturación se pierde por márgenes sin controlar</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4–6h</div>
+          <div class="stat-label">semanales perdidas gestionando albaranes a mano</div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- LO QUE KITCH CONSIGUE -->
+    <div class="section">
+      <div class="tag">Lo que Kitch consigue</div>
+      <div class="title">Control total de tu rentabilidad, sin trabajo extra</div>
+      <div class="subtitle">Kitch digitaliza tus albaranes en segundos y mantiene el coste real de cada plato actualizado de forma automática. Te enteras antes, no a fin de mes cuando ya no tiene remedio.</div>
+
+      <div class="promise-grid">
+        <div class="promise-item">
+          <div class="picon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="ptext"><strong>Escandallos en tiempo real</strong>Si el aceite sube un 10%, ves al instante cómo afecta al margen de cada plato.</div>
+        </div>
+        <div class="promise-item">
+          <div class="picon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="ptext"><strong>Cero albaranes a mano</strong>Foto o PDF. Kitch extrae precios y cantidades sin que toques nada.</div>
+        </div>
+        <div class="promise-item">
+          <div class="picon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="ptext"><strong>Alertas de rentabilidad</strong>Detecta si un plato deja de ser rentable antes de que te cueste dinero.</div>
+        </div>
+        <div class="promise-item">
+          <div class="picon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="ptext"><strong>Precio de venta recomendado</strong>Calcula el precio óptimo de cada plato según tu margen objetivo.</div>
+        </div>
+        <div class="promise-item">
+          <div class="picon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="ptext"><strong>Biblioteca de albaranes</strong>Todo documentado. Sabes qué proveedor subió qué precio y cuándo.</div>
+        </div>
+        <div class="promise-item">
+          <div class="picon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="ptext"><strong>Reportes financieros</strong>Food cost real, desviaciones y rentabilidad por plato, siempre disponibles.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════ PÁGINA 2 ════════════ -->
+<div class="page">
+  <div class="body">
+
+    <!-- CALCULADORA 1 -->
+    <div class="section">
+      <div class="title">¿Cuánto dinero puedes dejar de perder con Kitch en 3 meses?</div>
+
+      <div class="calc-wrap">
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label>Clientes por semana</label>
+            <span class="slider-val" id="v-clientes">300</span>
+          </div>
+          <input type="range" id="clientes" min="20" max="1500" step="10" value="300" oninput="syncSlider('clientes','v-clientes'); calcDinero()">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label>Ticket medio por cliente</label>
+            <span class="slider-val" id="v-ticket">28 €</span>
+          </div>
+          <input type="range" id="ticket" min="5" max="120" step="1" value="28" oninput="syncSliderEur('ticket','v-ticket'); calcDinero()">
+        </div>
+
+        <div class="result-row" style="margin-top:14px;">
+          <div class="rbox neutral">
+            <div class="rl">Ingresos mensuales</div>
+            <div class="rn" id="r-fac">—</div>
+          </div>
+          <div class="rbox neutral">
+            <div class="rl">Beneficio sin Kitch</div>
+            <div class="rn" id="r-sin">—</div>
+          </div>
+          <div class="rbox gain">
+            <div class="rl">Beneficio con Kitch</div>
+            <div class="rn" id="r-con">—</div>
+          </div>
+        </div>
+
+        <div class="result-row2">
+          <div class="rbox neutral accent" style="grid-column: span 2;">
+            <div class="rl">Beneficio extra anual por utilizar Kitch</div>
+            <div class="rn" id="r-anual">—</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- CALCULADORA 2 -->
+    <div class="section">
+      <div class="title">Horas que dejas de perder cada semana</div>
+
+      <div class="calc-wrap">
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label>Albaranes por semana</label>
+            <span class="slider-val" id="v-albaranes">15</span>
+          </div>
+          <input type="range" id="albaranes" min="1" max="100" step="1" value="15" oninput="syncSlider('albaranes','v-albaranes'); calcTiempo()">
+        </div>
+
+        <div class="time-row">
+          <div class="tbox before">
+            <div class="ttag">Sin Kitch</div>
+            <div class="tnum" id="t-sin">—</div>
+            <div class="tlabel">horas/semana gestionando albaranes a mano</div>
+          </div>
+          <div class="tbox after">
+            <div class="ttag">Con Kitch</div>
+            <div class="tnum" id="t-con">—</div>
+            <div class="tlabel">horas/semana — solo el tiempo de hacer una foto</div>
+          </div>
+        </div>
+        <div class="time-save">
+          <span>Tiempo que recuperas cada mes para lo que importa</span>
+          <strong id="t-save">—</strong>
+        </div>
+
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- EQUIPO -->
+    <div class="section">
+      <div class="tag">Quiénes somos</div>
+
+      <div class="team-founders">
+        <div class="member">
+          <div class="member-av">J</div>
+          <div class="member-name">Juanan</div>
+          <div class="member-desc">El que hace que la máquina gire. Obsesionado con los procesos, convencido de que un negocio bien engrasado es un negocio rentable.</div>
+        </div>
+        <div class="member">
+          <div class="member-av">S</div>
+          <div class="member-name">Salva</div>
+          <div class="member-desc">Convencido de que la gastronomía es cultura. Construye para que los hosteleros puedan dedicarse a lo que de verdad importa — crear, no sobrevivir.</div>
+        </div>
+      </div>
+
+      <div class="team-mission">
+        <p>Nuestro objetivo es <strong>cambiar la gestión de la hostelería</strong> y hacerla accesible para quien la vive cada día. Los clientes son cada vez más exigentes y el margen de error, cada vez menor. Por eso estamos aquí. <strong>Un restaurante sin control de sus números es un restaurante con un pie en el barranco</strong> — y nosotros hemos venido a quitarte ese peso de encima.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function fmt(n) {
+  return Math.round(n).toLocaleString('es-ES') + ' €';
+}
+function fmtH(h) {
+  return h.toFixed(1).replace('.', ',') + ' h';
+}
+function syncSlider(id, valId) {
+  document.getElementById(valId).textContent = document.getElementById(id).value;
+}
+function syncSliderEur(id, valId) {
+  document.getElementById(valId).textContent = document.getElementById(id).value + ' €';
+}
+
+function calcDinero() {
+  var c = parseFloat(document.getElementById('clientes').value) || 0;
+  var t = parseFloat(document.getElementById('ticket').value)   || 0;
+  var fac    = c * t * 4.33;
+  var bSin   = fac * 0.09;        // margen neto medio 8–10%, usamos 9%
+  var ahorro = fac * 0.035;       // reducción costes 3.5%
+  var bCon   = bSin + ahorro;
+  var anual  = ahorro * 12;
+  document.getElementById('r-fac').textContent = fmt(fac);
+  document.getElementById('r-sin').textContent = fmt(bSin);
+  document.getElementById('r-con').textContent = fmt(bCon);
+  document.getElementById('r-anual').textContent = fmt(anual);
+}
+
+function calcTiempo() {
+  var a   = parseFloat(document.getElementById('albaranes').value) || 0;
+  var hS  = (a * 15) / 60;       // 15 min/albarán manual
+  var hC  = (a * 0.5) / 60;      // ~30 seg por foto
+  var mes = (hS - hC) * 4.33;
+  document.getElementById('t-sin').textContent  = fmtH(hS);
+  document.getElementById('t-con').textContent  = fmtH(hC);
+  document.getElementById('t-save').textContent = fmtH(mes) + ' al mes';
+}
+
+calcDinero();
+calcTiempo();
+</script>
+
+</body>
+</html>
